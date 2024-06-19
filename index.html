@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/x-icon" href="../after/images/car.ico">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CarFaxUA</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link href='https://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .gallery-container {
+      position: relative;
+      max-width: 700px; /* Максимальна ширина галереї */
+      margin: 50px auto;
+      overflow: hidden; /* Приховує частини зображень, які виходять за межі контейнера */
+    }
+
+    .gallery-container img {
+      width: 100%;
+      height: auto; /* Автоматична висота зображень для запобігання розтягуванню */
+      display: none;
+    }
+
+    .gallery-container img.active {
+      display: block;
+      animation: fadeIn 2s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .image-info {
+      position: absolute;
+      top: 20px; /* Відстань від верхнього краю зображення */
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.76); /* Прозорість тла */
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.76); /* Тінь */
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .gallery-container .image-info h2 {
+      margin-top: 0;
+    }
+
+    .gallery-container .image-info p {
+      margin-bottom: 5px;
+    }
+
+    .gallery-container .image-info.active {
+      opacity: 1;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2em;
+      color: #333;
+      background-color: rgba(255, 255, 255, 0.7);
+      border: none;
+      cursor: pointer;
+      padding: 0.5em;
+      user-select: none;
+      z-index: 10;
+      width: 80px; /* Ширина стрілок */
+      height: 80px; /* Висота стрілок */
+      text-align: center;
+      line-height: 50px;
+    }
+
+    .arrow.left {
+      left: 10px; /* Відсунути стрілку вліво від контейнера */
+    }
+
+    .arrow.right {
+      right: 10px; /* Відсунути стрілку вправо від контейнера */
+    }
+
+    .arrow:hover {
+      background-color: rgba(255, 255, 255, 0.568); /* Зміна кольору при наведенні */
+    }
+
+    .header-title { /* Доданий клас для заголовка */
+      margin-top: 20px; /* Додано відступ зверху */
+    }
+  </style>
+</head>
+<body>
+<header>
+  <nav id="header-nav" class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="index.html" class="pull-left visible-md visible-lg">
+          <div id="logo-img"></div>
+        </a>
+
+        <div class="navbar-brand">
+          <a href="index.html"><h1 class="header-title">CarFaxUA</h1></a> <!-- Додано клас для заголовка -->
+          <p>
+            <img src="images/number-one-30x30.png" alt="Number one in the world market">
+            <span>Number one in the world market</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Галерея з фото та анімацією -->
+<div class="gallery-container">
+  <img src="images/car1.jpg" class="active" alt="Car 1">
+  <div class="image-info active">
+    <h2>BMW M5 Competition</h2>
+    <p>Year: 2017</p>
+    <p>Engine: V6, 3.0L</p>
+    <p>Horsepower: 340 hp</p>
+  </div>
+
+  <img src="images/car2.jpg" alt="Car 2">
+  <div class="image-info">
+    <h2>Mercedes-Benz E-Class E 55 AMG </h2>
+    <p>Year: 2009</p>
+    <p>Engine: V8, 5.0L</p>
+    <p>Horsepower: 470 hp</p>
+  </div>
+
+  <img src="images/car3.jpg" alt="Car 3">
+  <div class="image-info">
+    <h2>Audi RS5</h2>
+    <p>Year: 2017</p>
+    <p>Engine: V6, 2.9L</p>
+    <p>Horsepower: 474 hp</p>
+  </div>
+
+  <img src="images/car4.jpg" alt="Car 4">
+  <div class="image-info">
+    <h2>Porsche 911 Turbo S</h2>
+    <p>Year: 2022</p>
+    <p>Engine: Flat-6, 3.8L</p>
+    <p>Horsepower: 640 hp</p>
+  </div>
+
+  <button class="arrow left" onclick="prevImage()">&#9664;</button>
+  <button class="arrow right" onclick="nextImage()">&#9654;</button>
+</div>
+
+<!-- jQuery (Bootstrap JS plugins depend on it) -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/script.js"></script>
+
+<script>
+  let currentImageIndex = 0;
+  const images = document.querySelectorAll('.gallery-container img');
+  const imageInfos = document.querySelectorAll('.gallery-container .image-info');
+
+  function showImage(index) {
+    images.forEach((img, i) => {
+      img.classList.toggle('active', i === index);
+    });
+    
+    imageInfos.forEach((info, i) => {
+      info.classList.toggle('active', i === index);
+    });
+  }
+
+  function nextImage() {
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    showImage(currentImageIndex);
+  }
+
+  function prevImage() {
+    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+    showImage(currentImageIndex);
+  }
+</script>
+</body>
+</html>
